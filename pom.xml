@@ -44,6 +44,14 @@
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-core-impl</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>jakarta.enterprise</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jakarta.interceptor</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
