@@ -5,12 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.flowlogix</groupId>
-    <artifactId>weld-repackaged</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>weld-se-core</artifactId>
+    <version>1.x-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <weld.version>5.1.2.Final</weld.version>
         <weld.spi.version>5.0.SP3</weld.spi.version>
@@ -88,6 +87,13 @@
 
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <proc>full</proc>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.1</version>
