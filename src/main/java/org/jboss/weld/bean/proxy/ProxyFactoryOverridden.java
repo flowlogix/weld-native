@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import jakarta.enterprise.inject.spi.Bean;
 import org.jboss.weld.bean.AbstractProducerBean;
 import org.jboss.weld.util.Proxies.TypeInfo;
-import org.jboss.weld.bean.proxy.ProxyFactoryNew.ProxyNameHolder;
+import org.jboss.weld.bean.proxy.ProxyFactoryNative.ProxyNameHolder;
 
 public class ProxyFactoryOverridden {
     /*

@@ -127,10 +127,10 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.jboss.weld.bean.proxy.ProxyFactory</pattern>
-                                    <shadedPattern>org.jboss.weld.bean.proxy.ProxyFactoryNew</shadedPattern>
+                                    <shadedPattern>org.jboss.weld.bean.proxy.ProxyFactoryNative</shadedPattern>
                                     <excludes>
-                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNew</exclude>
-                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNew$ProxyNameHolder</exclude>
+                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNative</exclude>
+                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNative$ProxyNameHolder</exclude>
                                     </excludes>
                                 </relocation>
                             </relocations>
