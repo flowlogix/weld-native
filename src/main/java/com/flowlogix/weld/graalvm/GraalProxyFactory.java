@@ -28,7 +28,7 @@ import org.jboss.weld.util.Proxies.TypeInfo;
  * Patches {@link ProxyFactory} via GraalVM substitutions. No initialization needed.
  */
 @TargetClass(ProxyFactory.class)
-public final class GraalProxyFactory {
+final class GraalProxyFactory {
     @TargetClass(value = ProxyFactory.class, innerClass = "ProxyNameHolder")
     static final class ProxyNameHolder {
         @Alias

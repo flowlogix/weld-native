@@ -8,20 +8,22 @@ import java.lang.invoke.MethodHandle;
 import static com.flowlogix.weld.graalvm.DynamicWeld.createInnerConstructorHandle;
 import static com.flowlogix.weld.graalvm.DynamicWeld.substituteMethod;
 
-public class DynamicProxyFactory {
+class DynamicProxyFactory {
     private static MethodHandle constructor;
 
-    static void initialize() {
-        substituteMethod(ProxyFactory.class, DynamicProxyFactory.class, "createCompoundProxyName");
-        constructor = createInnerConstructorHandle(ProxyFactory.class, "ProxyNameHolder",
-                String.class, String.class, Bean.class);
+    public static class Substitution {
+        @RuntimeType
+        public static Object createCompoundProxyName(String contextId, Bean<?> bean, Proxies.TypeInfo typeInfo,
+                                                     StringBuilder name) {
+            return ProxyFactoryPatch.createCompoundProxyName(contextId, bean, typeInfo, name,
+                    DynamicProxyFactory::supply);
+        }
     }
 
-    @RuntimeType
-    public static Object createCompoundProxyName(String contextId, Bean<?> bean, Proxies.TypeInfo typeInfo,
-                                                 StringBuilder name) {
-        return ProxyFactoryPatch.createCompoundProxyName(contextId, bean, typeInfo, name,
-                DynamicProxyFactory::supply);
+    static void initialize() {
+        substituteMethod(ProxyFactory.class, Substitution.class, "createCompoundProxyName");
+        constructor = createInnerConstructorHandle(ProxyFactory.class, "ProxyNameHolder",
+                String.class, String.class, Bean.class);
     }
 
     private static Object supply(String proxyPackage, String className, Bean<?> bean) {
