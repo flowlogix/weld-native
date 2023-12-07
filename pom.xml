@@ -4,154 +4,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.flowlogix</groupId>
-    <artifactId>weld-se-core</artifactId>
+    <groupId>com.flowlogix.weld</groupId>
+    <artifactId>weld-se-native</artifactId>
     <version>1.x-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <weld.version>5.1.2.Final</weld.version>
-        <weld.spi.version>5.0.SP3</weld.spi.version>
+        <bytebuddy.version>1.14.10</bytebuddy.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se-core</artifactId>
-            <version>${weld.version}</version>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core-impl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core-impl</artifactId>
-            <version>${weld.version}</version>
+            <version>5.1.2.Final</version>
             <optional>true</optional>
         </dependency>
-
         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-lite-extension-translator</artifactId>
-            <version>${weld.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core-impl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jakarta.enterprise</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jakarta.interceptor</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.classfilewriter</groupId>
-            <artifactId>jboss-classfilewriter</artifactId>
-            <version>1.3.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.environment</groupId>
-            <artifactId>weld-environment-common</artifactId>
-            <version>${weld.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core-impl</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.graalvm.nativeimage</groupId>
+            <artifactId>svm</artifactId>
+            <version>23.1.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-api</artifactId>
-            <version>${weld.spi.version}</version>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${bytebuddy.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-spi</artifactId>
-            <version>${weld.spi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.5.3.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.el</groupId>
-            <artifactId>jakarta.el-api</artifactId>
-            <version>5.0.1</version>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${bytebuddy.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <proc>full</proc>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.1</version>
-                <executions>
-                    <execution>
-                        <id>native</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <minimizeJar>false</minimizeJar>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>native</shadedClassifierName>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
-                            </transformers>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.jboss.weld.se:weld-se-core</include>
-                                    <include>org.jboss.weld:weld-core-impl</include>
-                                    <include>${project.groupId}:${project.artifactId}</include>
-                                </includes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/services/jakarta.enterprise.inject.spi.CDIProvider</exclude>
-                                        <exclude>META-INF/services/jakarta.enterprise.inject.se.SeContainerInitializer</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.jboss.weld.bean.proxy.ProxyFactory</pattern>
-                                    <shadedPattern>org.jboss.weld.bean.proxy.ProxyFactoryNative</shadedPattern>
-                                    <excludes>
-                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNative</exclude>
-                                        <exclude>org.jboss.weld.bean.proxy.ProxyFactoryNative$ProxyNameHolder</exclude>
-                                    </excludes>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
