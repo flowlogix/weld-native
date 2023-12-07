@@ -21,9 +21,9 @@ class DynamicProxyFactory {
     }
 
     static void initialize() {
-        substituteMethod(ProxyFactory.class, Substitution.class, "createCompoundProxyName");
-        constructor = createInnerConstructorHandle(ProxyFactory.class, "ProxyNameHolder",
-                String.class, String.class, Bean.class);
+        constructor = substituteMethod(ProxyFactory.class, Substitution.class, "createCompoundProxyName",
+                () -> createInnerConstructorHandle(ProxyFactory.class, "ProxyNameHolder",
+                        String.class, String.class, Bean.class));
     }
 
     private static Object supply(String proxyPackage, String className, Bean<?> bean) {

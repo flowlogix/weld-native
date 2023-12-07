@@ -8,6 +8,7 @@ import org.graalvm.nativeimage.ImageInfo;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.util.function.Supplier;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
 /**
@@ -19,10 +20,11 @@ public class DynamicWeld {
         DynamicProxyFactory.initialize();
     }
 
-    static void substituteMethod(Class<?> originalClass, Class<?> overriddenClass, String methodName) {
+    static<TT> TT substituteMethod(Class<?> originalClass, Class<?> overriddenClass, String methodName,
+                                   Supplier<TT> additionalSetup) {
         try {
             if (ImageInfo.isExecutable() || ImageInfo.isSharedLibrary()) {
-                return;
+                return null;
             }
         } catch (NoClassDefFoundError ignore) { }
         ByteBuddyAgent.install();
@@ -30,6 +32,7 @@ public class DynamicWeld {
                 .method(named(methodName))
                 .intercept(MethodDelegation.to(overriddenClass))
                 .make().load(originalClass.getClassLoader(), ClassReloadingStrategy.fromInstalledAgent());
+        return additionalSetup.get();
     }
 
     static MethodHandle createInnerConstructorHandle(Class<?> originalClass, String innerClassName,
