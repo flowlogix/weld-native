@@ -5,7 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.flowlogix.weld</groupId>
-    <artifactId>weld-se-native</artifactId>
+    <artifactId>weld-native</artifactId>
+    <name>Weld native patch</name>
+    <description>Weld patch for Helidon that's cleaner</description>
     <version>1.x-SNAPSHOT</version>
 
     <properties>
