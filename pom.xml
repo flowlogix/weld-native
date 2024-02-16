@@ -12,11 +12,19 @@
 
     <parent>
         <groupId>com.flowlogix</groupId>
-        <artifactId>base-pom</artifactId>
-        <version>1</version>
+        <artifactId>infra-pom</artifactId>
+        <version>2</version>
     </parent>
 
+    <url>https://github.com/flowlogix/weld-native</url>
+    <scm>
+        <url>https://github.com/flowlogix/weld-native</url>
+        <connection>scm:git:git@github.com:flowlogix/weld-native.git</connection>
+        <developerConnection>scm:git:git@github.com:flowlogix/weld-native.git</developerConnection>
+    </scm>
+
     <properties>
+        <checkstyle.supressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.supressionsLocation>
         <bytebuddy.version>1.14.11</bytebuddy.version>
     </properties>
 
