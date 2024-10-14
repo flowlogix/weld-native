@@ -22,7 +22,7 @@ import net.bytebuddy.implementation.MethodDelegation;
 import org.graalvm.nativeimage.ImageInfo;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
+import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
@@ -52,11 +52,12 @@ public class DynamicWeld {
     }
 
     static MethodHandle createInnerConstructorHandle(Class<?> originalClass, String innerClassName,
-                                                     Class<?> firstParam, Class<?>... restParams) {
+                                                     Class<?>... parameters) {
         try {
-            MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(originalClass, MethodHandles.lookup());
             Class<?> inner = Class.forName("%s$%s".formatted(originalClass.getName(), innerClassName));
-            return lookup.findConstructor(inner, MethodType.methodType(void.class, firstParam, restParams));
+            Constructor<?> constructor = inner.getDeclaredConstructor(parameters);
+            constructor.setAccessible(true);
+            return MethodHandles.lookup().unreflectConstructor(constructor);
         } catch (Throwable thr) {
             throw new RuntimeException(thr);
         }
