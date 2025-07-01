@@ -24,7 +24,7 @@
     </scm>
 
     <properties>
-        <checkstyle.supressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.supressionsLocation>
+        <checkstyle.suppressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.suppressionsLocation>
         <bytebuddy.version>1.17.6</bytebuddy.version>
     </properties>
 
