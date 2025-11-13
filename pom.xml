@@ -25,7 +25,7 @@
 
     <properties>
         <checkstyle.suppressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.suppressionsLocation>
-        <bytebuddy.version>1.18.0</bytebuddy.version>
+        <bytebuddy.version>1.18.1</bytebuddy.version>
     </properties>
 
     <dependencies>
