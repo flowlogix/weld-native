@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.flowlogix.weld</groupId>
     <artifactId>weld-native</artifactId>
     <name>Weld native patch</name>
     <description>Weld patch for Helidon that's cleaner</description>
-    <version>1.x-SNAPSHOT</version>
+    <version>6.0.3</version>
 
     <parent>
         <groupId>com.flowlogix</groupId>
@@ -21,7 +19,8 @@
         <url>https://github.com/flowlogix/weld-native</url>
         <connection>scm:git:git@github.com:flowlogix/weld-native.git</connection>
         <developerConnection>scm:git:git@github.com:flowlogix/weld-native.git</developerConnection>
-    </scm>
+      <tag>Version-6.0.3</tag>
+  </scm>
 
     <properties>
         <checkstyle.suppressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.suppressionsLocation>
