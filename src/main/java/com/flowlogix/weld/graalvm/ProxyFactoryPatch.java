@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Helidon patch for Weld ProxyFactory
+ * Helidon patch for Weld ProxyFactory.
  * Patches {@link org.jboss.weld.bean.proxy.ProxyFactory#createCompoundProxyName(String, Bean, Proxies.TypeInfo, StringBuilder)}
  */
 @SuppressWarnings("checkstyle:HideUtilityClassConstructor")
