@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.flowlogix</groupId>
         <artifactId>infra-pom</artifactId>
-        <version>140</version>
+        <version>141</version>
     </parent>
 
     <url>https://github.com/flowlogix/weld-native</url>
@@ -25,7 +25,7 @@
 
     <properties>
         <checkstyle.suppressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.suppressionsLocation>
-        <bytebuddy.version>1.18.14</bytebuddy.version>
+        <flowlogix.bom.version>47</flowlogix.bom.version>
     </properties>
 
     <dependencies>
@@ -45,12 +45,10 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>${bytebuddy.version}</version>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>${bytebuddy.version}</version>
         </dependency>
     </dependencies>
 </project>
