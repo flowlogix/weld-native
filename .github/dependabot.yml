@@ -10,3 +10,7 @@ updates:
     open-pull-requests-limit: 50
     schedule:
       interval: "daily"
+    groups:
+      maven-dependencies:
+        patterns:
+          - '*'
