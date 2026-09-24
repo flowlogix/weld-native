@@ -25,7 +25,7 @@
 
     <properties>
         <checkstyle.suppressionsLocation>${basedir}/checkstyle/suppressions.xml</checkstyle.suppressionsLocation>
-        <flowlogix.bom.version>47</flowlogix.bom.version>
+        <flowlogix.bom.version>48</flowlogix.bom.version>
     </properties>
 
     <dependencies>
